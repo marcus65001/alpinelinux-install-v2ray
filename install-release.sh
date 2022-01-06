@@ -121,7 +121,7 @@ install_confdir() {
     CONFDIR='0'
     if [ ! -d '/usr/local/etc/v2ray/' ]; then
         install -d /usr/local/etc/v2ray/
-        for BASE in 00_log 01_api 02_dns 03_routing 04_policy 05_inbounds 06_outbounds 07_transport 08_stats 09_reverse; do
+        for BASE in config; do
             echo '{}' > "/usr/local/etc/v2ray/$BASE.json"
         done
         CONFDIR='1'
@@ -158,16 +158,7 @@ information() {
     echo 'installed: /usr/local/lib/v2ray/geoip.dat'
     echo 'installed: /usr/local/lib/v2ray/geosite.dat'
     if [ "$CONFDIR" -eq '1' ]; then
-        echo 'installed: /usr/local/etc/v2ray/00_log.json'
-        echo 'installed: /usr/local/etc/v2ray/01_api.json'
-        echo 'installed: /usr/local/etc/v2ray/02_dns.json'
-        echo 'installed: /usr/local/etc/v2ray/03_routing.json'
-        echo 'installed: /usr/local/etc/v2ray/04_policy.json'
-        echo 'installed: /usr/local/etc/v2ray/05_inbounds.json'
-        echo 'installed: /usr/local/etc/v2ray/06_outbounds.json'
-        echo 'installed: /usr/local/etc/v2ray/07_transport.json'
-        echo 'installed: /usr/local/etc/v2ray/08_stats.json'
-        echo 'installed: /usr/local/etc/v2ray/09_reverse.json'
+        echo 'installed: /usr/local/etc/v2ray/config.json'
     fi
     if [ "$LOG" -eq '1' ]; then
         echo 'installed: /var/log/v2ray/'
