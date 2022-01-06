@@ -5,10 +5,10 @@ description="A platform for building proxies to bypass network restrictions"
 description_checkconfig="Test configuration file"
 
 : ${env:="V2RAY_LOCATION_ASSET=/usr/local/lib/v2ray/"}
-: ${confdir:="/usr/local/etc/v2ray/"}
+: ${conf:="/usr/local/etc/v2ray/config.json"}
 
 command="/usr/local/bin/v2ray"
-command_args="-confdir $confdir"
+command_args="-config $conf"
 command_user="nobody"
 
 pidfile="/run/v2ray.pid"
@@ -21,10 +21,6 @@ depend() {
 }
 
 checkconfig() {
-	if [ ! -d "$confdir" ]; then
-		eerror "You need to setup $confdir first"
-		return 1
-	fi
 	export $env
 	$command -test $command_args
 }
