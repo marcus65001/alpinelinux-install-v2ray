@@ -8,7 +8,8 @@ description_checkconfig="Test configuration file"
 : ${conf:="/usr/local/etc/v2ray/config.json"}
 
 command="/usr/local/bin/v2ray"
-command_args="-config $conf"
+command_args="run -config $conf"
+command_test_args="test -config $conf"
 command_user="nobody"
 
 pidfile="/run/v2ray.pid"
@@ -22,7 +23,7 @@ depend() {
 
 checkconfig() {
 	export $env
-	$command test $command_args
+	$command $command_test_args
 }
 
 start_pre() {
