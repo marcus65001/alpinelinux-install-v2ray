@@ -22,7 +22,7 @@ depend() {
 
 checkconfig() {
 	export $env
-	$command -test $command_args
+	$command test $command_args
 }
 
 start_pre() {
