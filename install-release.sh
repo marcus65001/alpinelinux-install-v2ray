@@ -111,7 +111,6 @@ is_it_running() {
 
 install_v2ray() {
     install -m 755 "${TMP_DIRECTORY}v2ray" "/usr/local/bin/v2ray"
-    install -m 755 "${TMP_DIRECTORY}v2ctl" "/usr/local/bin/v2ctl"
     install -d /usr/local/lib/v2ray/
     install -m 755 "${TMP_DIRECTORY}geoip.dat" "/usr/local/lib/v2ray/geoip.dat"
     install -m 755 "${TMP_DIRECTORY}geosite.dat" "/usr/local/lib/v2ray/geosite.dat"
@@ -121,9 +120,7 @@ install_confdir() {
     CONFDIR='0'
     if [ ! -d '/usr/local/etc/v2ray/' ]; then
         install -d /usr/local/etc/v2ray/
-        for BASE in config; do
-            echo '{}' > "/usr/local/etc/v2ray/$BASE.json"
-        done
+        install -m 755 "${TMP_DIRECTORY}config.json" "/usr/local/etc/v2ray/config.json"
         CONFDIR='1'
     fi
 }
@@ -142,7 +139,7 @@ install_startup_service_file() {
     OPENRC='0'
     if [ ! -f '/etc/init.d/v2ray' ]; then
         mkdir "${TMP_DIRECTORY}init.d/"
-        curl -o "${TMP_DIRECTORY}init.d/v2ray" https://raw.githubusercontent.workers.dev/v2fly/alpinelinux-install-v2ray/master/init.d/v2ray -s
+        curl -o "${TMP_DIRECTORY}init.d/v2ray" https://raw.githubusercontent.workers.dev/marcus65001/alpinelinux-install-v2ray/master/init.d/v2ray -s
         if [ "$?" -ne '0' ]; then
             echo 'error: Failed to start service file download! Please check your network or try again.'
             exit 1
@@ -154,7 +151,6 @@ install_startup_service_file() {
 
 information() {
     echo 'installed: /usr/local/bin/v2ray'
-    echo 'installed: /usr/local/bin/v2ctl'
     echo 'installed: /usr/local/lib/v2ray/geoip.dat'
     echo 'installed: /usr/local/lib/v2ray/geosite.dat'
     if [ "$CONFDIR" -eq '1' ]; then
